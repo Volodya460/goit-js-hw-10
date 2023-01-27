@@ -38,9 +38,9 @@ function createСountry(countries) {
    <img class='country__flag' src="${png}" alt=" ${official} flag  " />
    <h1 class='country__name'>${official}</h1>
    </div>
-   <p class='country__capital'>Capital: <span class='country__value'>${capital}</span></p> 
-   <p class='country__population'>Population: <span class='country__value'>${population}</span></p>
-   <p class='country__language'>Languages: <span class='country__value'>${countryLanguages}</span></p>
+   <p class='country__capital'>Capital:${capital}</p> 
+   <p class='country__population'>Population:${population}</p>
+   <p class='country__language'>Languages: ${countryLanguages}</p>
    `;
       }
     )
