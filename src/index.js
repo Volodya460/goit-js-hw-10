@@ -1,8 +1,8 @@
 import './css/styles.css';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { fetchCountries } from './fetchCountries';
-
+import { FetchApi } from './fetchCountries';
+const fetchApi = new FetchApi();
 const delay = 300;
 const inputEl = document.getElementById('search-box');
 const countryInfo = document.querySelector('.country-info');
@@ -10,16 +10,21 @@ const countryList = document.querySelector('.country-list');
 
 inputEl.addEventListener('input', debounce(GetCountryName, delay));
 
-function GetCountryName(event) {
-  const nameCountry = event.target.value.trim();
+async function GetCountryName(event) {
+  fetchApi.nameCountry = event.target.value.trim();
   countryList.innerHTML = '';
   countryInfo.innerHTML = '';
-  console.log(nameCountry);
-  if (!nameCountry) {
-    return;
-  }
+  console.log(fetchApi.nameCountry);
+  try {
+    if (!fetchApi.nameCountry) {
+      return ;
+    }
 
-  fetchCountries(nameCountry).then(optionsForNeedCountry).catch(errorMessage);
+    const fech = await fetchApi.fetchCountries(fetchApi.nameCountry);
+    optionsForNeedCountry(fech);
+  } catch (err) {
+    errorMessage(err);
+  }
 }
 
 function createСountry(countries) {
